@@ -196,25 +196,22 @@ header {
 
 .product-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2.5rem;
 }
 
-@media (min-width: 769px) {
-    .product-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-}
+/* Removed fixed 2-column layout to allow auto-fit */
 
 .product-card {
     background: var(--white);
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
     transition: var(--transition);
-    text-align: left;
+    text-align: center;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .product-card:hover {
@@ -223,10 +220,15 @@ header {
 }
 
 .product-image {
-    height: 200px;
+    height: 250px;
     width: 100%;
     background-size: cover;
     background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
 }
 
 .product-info {
@@ -236,46 +238,37 @@ header {
 
 .product-card h3 {
     color: var(--primary-color);
-    margin-bottom: 0.5rem;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 
-.product-price {
-    color: #000;
-    font-weight: bold;
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 5px;
-    border-bottom: 1px dashed #ccc;
-    padding-bottom: 5px;
+/* Product price styles removed */
+
+@media (min-width: 992px) {
+    .product-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 991px) {
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (min-width: 769px) {
     .product-card {
-        flex-direction: row;
-        align-items: center;
+        /* Keep column layout */
     }
 
     .product-image {
-        height: 100%;
-        min-height: 200px;
-        width: 50%;
+        height: 250px;
+        width: 100%;
     }
 
     .product-info {
-        width: 50%;
-    }
-
-    /* Checkerboard alternating layout */
-    .product-card:nth-child(4n+1),
-    .product-card:nth-child(4n+4) {
-        flex-direction: row;
-    }
-
-    .product-card:nth-child(4n+2),
-    .product-card:nth-child(4n+3) {
-        flex-direction: row-reverse;
+        width: 100%;
     }
 }
 
